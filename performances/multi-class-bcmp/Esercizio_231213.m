@@ -44,7 +44,7 @@ lambda_ext_matrix = zeros(C,K);
 
 lambda_ext_matrix(1,1) = lambda_ext_pcscf_class1;
 lambda_ext_matrix(2,1) = lambda_ext_pcscf_class2;
-lambda_ext_vector = sum(lambda_ext_matrix,2)'
+lambda_ext_vector = sum(lambda_ext_matrix,2)';
 
 % Definizione della matrice dei tempi di servizi medi
 S = zeros(C,K);
@@ -65,8 +65,8 @@ T_tot_func = @(Q, lambda_ext_vector) sum(Q,2)./lambda_ext_vector;
 %% Plot del grafico del tempo complessivo al variare di lambda_ext
 
 % Definizione dei vettori di supporto
-lambda_ext_pcscf_class2_experiments = 10:1:100
-lambda_ext_pcscf_class2_num_experiments = length(lambda_ext_pcscf_class2_experiments)
+lambda_ext_pcscf_class2_experiments = 10:1:100;
+lambda_ext_pcscf_class2_num_experiments = length(lambda_ext_pcscf_class2_experiments);
 
 lambda_ext_vector_experiments = zeros(lambda_ext_pcscf_class2_num_experiments, C);
 T_tot_experiments = zeros(lambda_ext_pcscf_class2_num_experiments, C);
