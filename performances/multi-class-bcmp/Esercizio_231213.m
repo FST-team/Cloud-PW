@@ -44,7 +44,7 @@ lambda_ext_matrix = zeros(C,K);
 
 lambda_ext_matrix(1,1) = lambda_ext_pcscf_class1;
 lambda_ext_matrix(2,1) = lambda_ext_pcscf_class2;
-lambda_ext_vector = sum(lambda_ext_matrix,2)'
+lambda_ext_vector = sum(lambda_ext_matrix,2)';
 
 % Definizione della matrice dei tempi di servizi medi
 S = zeros(C,K);
