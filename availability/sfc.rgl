@@ -27,7 +27,7 @@ Function:
 Name:reward_function_IH
 Number Parameter:0
 Body number of lines:5
-if(#(PupCNTi)>=1 and #(PupCNTh)>=1)
+if(#(PupCNTi)>=5 and #(PupCNTh)>=1)
 1
 else
 0
