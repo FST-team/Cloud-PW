@@ -5,7 +5,7 @@ avS = avP;
 avIH = 0.997671992;
 
 % first possible configuration
-
+ 
 costP = 9;
 costS = costP;
 costIH = 18.5;
