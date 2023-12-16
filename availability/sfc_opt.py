@@ -69,7 +69,6 @@ class SFC:
         vnf_list = [{'cost': self.get_cost(costs, self.vnf_list[i].conf), 'availability': self.av_list[i]} for i in range(len(self.vnf_list))]
         memo = {}
         result_cost, result_replicas = self.__calculate_dp(0, 1.0, vnf_list, availability_constraint, memo, max_replicas)
-        print(memo)
         if result_cost != float('inf'):
             return result_cost, result_replicas
         else:
