@@ -44,7 +44,7 @@ lambda_ext_matrix = zeros(C,K);
 
 lambda_ext_matrix(1,1) = lambda_ext_pcscf_class1;
 lambda_ext_matrix(2,1) = lambda_ext_pcscf_class2;
-lambda_ext_vector = sum(lambda_ext_matrix,2)';
+lambda_ext_vector = sum(lambda_ext_matrix,2)'
 
 % Definizione della matrice dei tempi di servizi medi
 S = zeros(C,K);
@@ -62,59 +62,70 @@ V = qnomvisits(P, lambda_ext_matrix);
 T_tot_func = @(Q, lambda_ext_vector) sum(Q,2)./lambda_ext_vector;
 
 %-------------------------------------------------------------------------------
-%% Plot del grafico del tempo complessivo al variare di lambda_ext
+%%Plot del grafico del tempo complessivo al variare di lambda_ext_pcscf_class2
+% e lambda_ext_pcscf_class1
 
-% Definizione dei vettori di supporto
-lambda_ext_pcscf_class2_experiments = 10:1:100;
+% Definizione delle strutture d'appoggio
+lambda_ext_pcscf_class1_experiments = 10:10:100;
+lambda_ext_pcscf_class2_experiments = 10:10:100;
+lambda_ext_pcscf_class1_num_experiments = length(lambda_ext_pcscf_class1_experiments);
 lambda_ext_pcscf_class2_num_experiments = length(lambda_ext_pcscf_class2_experiments);
 
-lambda_ext_vector_experiments = zeros(lambda_ext_pcscf_class2_num_experiments, C);
-T_tot_experiments = zeros(lambda_ext_pcscf_class2_num_experiments, C);
+lambda_ext_vector_experiments = zeros(lambda_ext_pcscf_class1_num_experiments, ...
+  lambda_ext_pcscf_class2_num_experiments, C);
+T_tot_experiments = zeros(lambda_ext_pcscf_class1_num_experiments, ...
+  lambda_ext_pcscf_class2_num_experiments, C);
 
-for ii=1:lambda_ext_pcscf_class2_num_experiments
+% Esecuzione degli esperimenti
+for ii=1:lambda_ext_pcscf_class1_num_experiments
+  for jj=1:lambda_ext_pcscf_class2_num_experiments
 
-  % Definizione del nuovo vettore di lambda_ext
-  lambda_ext_pcscf_class2_current_experiment = lambda_ext_pcscf_class2_experiments(ii);
+    % Definizione del nuovo vettore di lambda
+    lambda_ext_pcscf_class1_current_experiment = lambda_ext_pcscf_class1_experiments(ii);
+    lambda_ext_pcscf_class2_current_experiment = lambda_ext_pcscf_class2_experiments(jj);
 
-  lambda_ext_matrix_current_experiment = zeros(C,K);
-  lambda_ext_matrix_current_experiment(1,1) = lambda_ext_pcscf_class1;
-  lambda_ext_matrix_current_experiment(2,1) = lambda_ext_pcscf_class2_current_experiment;
-  lambda_ext_vector_experiments(ii,:) = sum(lambda_ext_matrix_current_experiment,2)';
+    lambda_ext_matrix_current_experiment = zeros(C,K);
+    lambda_ext_matrix_current_experiment(1,1) = lambda_ext_pcscf_class1_current_experiment;
+    lambda_ext_matrix_current_experiment(2,1) = lambda_ext_pcscf_class2_current_experiment;
+    lambda_ext_vector_experiments(ii,jj,:) = sum(lambda_ext_matrix_current_experiment,2)';
 
-  % Calcolo del vettore delle visite
-  V = qnomvisits(P, lambda_ext_matrix_current_experiment);
+    %Calcolo del vettore delle visite
+    V = qnomvisits(P, lambda_ext_matrix_current_experiment);
 
-  % Analisi della coda
-  try
-    [U,R,Q,X] = qnom(lambda_ext_vector_experiments(ii,:), S, V, m_vector);
 
-    % Calcolo dei tempi complessivi per classe
-    T_tot_experiments(ii,:) = T_tot_func(Q, lambda_ext_vector_experiments(ii,:)');
-  catch
-    T_tot_experiments(ii,:) = [NaN, NaN];
-  end_try_catch
+    % Analisi della coda
+    try
+      [U,R,Q,X] = qnom(squeeze(lambda_ext_vector_experiments(ii,jj,:)), S, V, m_vector);
 
-end
+      % Calcolo dei tempi complessivi per classe
+      T_tot_experiments(ii,jj,:) = T_tot_func(Q, squeeze(lambda_ext_vector_experiments(ii,jj,:)));
+    catch
+      T_tot_experiments(ii,jj,:) = [NaN, NaN];
+    end_try_catch
+
+  endfor
+endfor
 
 % Plot del grafico
-figure;
+upper_bound_surface = T_limit * ones(lambda_ext_pcscf_class1_num_experiments, lambda_ext_pcscf_class2_num_experiments);
 
-xlim_vector = [lambda_ext_pcscf_class2_experiments(1) lambda_ext_pcscf_class2_experiments(end)];
-
-plot(repmat(lambda_ext_pcscf_class2_experiments', 1,2), T_tot_experiments, '-o');
+figure(1);
+surf(lambda_ext_pcscf_class1_experiments, lambda_ext_pcscf_class2_experiments, T_tot_experiments(:,:,1));
 hold on;
-plot(xlim_vector, [T_limit T_limit]);
+surf(lambda_ext_pcscf_class1_experiments, lambda_ext_pcscf_class2_experiments, T_tot_experiments(:,:,2));
+surf(lambda_ext_pcscf_class1_experiments, lambda_ext_pcscf_class2_experiments, ...
+  upper_bound_surface, 'FaceAlpha', 0.5);
 hold off;
 
-titletext = strcat('Tempo medio complessivo al variare di \lambda_{1(2)} con \lambda_{1(1)} = ', ...
-  num2str(lambda_ext_pcscf_class1), ' (Configurazione m = [');
+titletext = strcat('Tempo medio complessivo al variare di \lambda_{1(1)} e \lambda_{1(2)} (Configurazione m = [');
 for ii=1:K
   titletext = strcat(titletext, num2str(m_vector(ii)), ',');
 end
 titletext = strcat(titletext, '])');
 
 title(titletext);
-legend('Classe 1', 'Classe 2', 'Upper bound');
-xlabel('\lambda_{1(2)} [req/s]');
-ylabel('E[T] [s]');
+legend('Classe 1', 'Classe 2', 'Upper Bound (E[T] = 200ms)');
+xlabel('\lambda_{1(1)} [req/s]');
+ylabel('\lambda_{1(2)} [req/s]');
+zlabel('E[T] [sec]');
 xlim(xlim_vector);
