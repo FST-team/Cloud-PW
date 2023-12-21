@@ -123,6 +123,6 @@ figure;
 plot(lambdas, T_values, '-o');
 xlabel('Traffic load (\lambda)');
 ylabel('Total Average Chain Time (T)');
-title('Medium-high traffic load');
+title('Medium-high traffic load with opt. conf.');
 
 
