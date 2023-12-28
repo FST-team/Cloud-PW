@@ -39,7 +39,7 @@ function [A_tot, x_vector] = readValuesFromCSVAndEvaluateAvailability(filepath, 
     figure;
     plot(x_vector, A_tot, 'o-');
     hold on;
-    plot([x_vector(1) x_vector(end)], [limit limit], 'y--');
+    plot([x_vector(1) x_vector(end)], [limit limit], 'g--');
     plot(x_vector(reference_index), A_tot(reference_index), 'ro');
     hold off;
     title(titletext, 'Interpreter','latex');
