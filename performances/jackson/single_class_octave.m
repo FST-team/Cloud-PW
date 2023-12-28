@@ -12,7 +12,9 @@ k = [1 1 1 1];
 S = [0.0011, 0.0072, 0.041, 0.0046];
 T_max = 0.2;
 
-[k, T] = qnosHelpFunctions.qnosGetWorkingConfiguration(P, lambda, S, T_max, k);
+[k, T] = qnosHelpFunctions.qnosGetWorkingConfigurationV2(P, lambda, S, T_max, k)
+k = [1 1 1 1];
+[k, T] = qnosHelpFunctions.qnosGetWorkingConfiguration(P, lambda, S, T_max, k)
 display("Total avg. chain time:")
 T
 

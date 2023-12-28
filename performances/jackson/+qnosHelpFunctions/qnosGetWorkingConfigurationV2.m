@@ -1,4 +1,4 @@
-function [k_vector, T_tot] = qnosGetWorkingConfiguration(P, lambda, S, T_tot_limit, k_vector_init)
+function [k_vector, T_tot] = qnosGetWorkingConfigurationV2(P, lambda, S, T_tot_limit, k_vector_init)
 
   n_nodes = length(P(1,:));
   k_vector = k_vector_init;
@@ -14,11 +14,19 @@ function [k_vector, T_tot] = qnosGetWorkingConfiguration(P, lambda, S, T_tot_lim
 
       if (T_tot > T_tot_limit)
 
-        % retrieve the node with the maximum load factor
-        [maxU, maxU_index] = max(U);
+        delta_cn = [];
+        delta_Tn = [];
 
-        % increase the node with the maximum load factor
-        k_vector(maxU_index) = k_vector(maxU_index) + 1;
+        for ii = 1:n_nodes
+          temp_k = k_vector;
+          temp_k(ii) = temp_k(ii) +1;
+          [U, R, Q, X] = qnos(lambda(1), S, V, temp_k);
+          delta_Tn(ii) = ((1/lambda(1)) * sum(Q)) - T_tot;
+        endfor
+
+        [min_delta_Tn, n] = min(delta_Tn)
+
+        k_vector(n) = k_vector(n) + 1
 
       endif
 
