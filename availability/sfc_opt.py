@@ -84,7 +84,7 @@ if __name__ == '__main__':
         "HW": 1.5
     }
     
-    vnf_P = vnf_S = VNF({
+    vnf_P = VNF({
         "CNT": 1,
         "DCK": 1,
         "VM": 1,
@@ -92,16 +92,25 @@ if __name__ == '__main__':
         "HW": 1
     })
     
+    vnf_S = VNF({
+        "CNT": 4,
+        "DCK": 1,
+        "VM": 1,
+        "HYP": 1,
+        "HW": 1
+    })
+    
     vnf_IH = VNF({
-        "CNT": 6,
+        "CNT": 24,
         "DCK": 2,
         "VM": 2,
         "HYP": 1,
         "HW": 1
     })
     
-    avP = avS = 0.998259001
-    avIH = 0.997671992
+    avP = 0.998259001
+    avS = 0.998244349
+    avIH = 0.997594466
     
     sfc = SFC([vnf_P, vnf_S, vnf_IH], [avP, avS, avIH])
         
