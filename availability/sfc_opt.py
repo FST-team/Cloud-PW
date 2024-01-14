@@ -101,7 +101,7 @@ if __name__ == '__main__':
     })
     
     vnf_IH = VNF({
-        "CNT": 24,
+        "CNT": 21,
         "DCK": 2,
         "VM": 2,
         "HYP": 1,
@@ -110,7 +110,7 @@ if __name__ == '__main__':
     
     avP = 0.998259001
     avS = 0.998244349
-    avIH = 0.997594466
+    avIH = 0.997607230
     
     sfc = SFC([vnf_P, vnf_S, vnf_IH], [avP, avS, avIH])
         
