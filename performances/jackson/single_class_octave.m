@@ -38,14 +38,14 @@ qnosHelpFunctions.qnosPlotTtot(P, max_lambda, min_lambda, S, V, k, 'Medium-high 
 min_lambda = 20;
 max_lambda = 40;
 k = [1 1 1 1];
-[k, T] = qnosHelpFunctions.qnosGetWorkingConfiguration(P, [max_lambda 0 0 0], S, T_max, k);
+[k, T] = qnosHelpFunctions.qnosGetWorkingConfiguration(P, [max_lambda 0 0 0], S, T_max, k)
 qnosHelpFunctions.qnosPlotTtot(P, max_lambda, min_lambda, S, V, k, 'Low-medium traffic load');
 
 % MEDIUM - HIGH TRAFFIC (60-80) OPTIMIZED CONFIGURATION
 min_lambda = 60;
 max_lambda = 80;
 k = [1 1 1 1];
-[k, T] = qnosHelpFunctions.qnosGetWorkingConfiguration(P, [max_lambda 0 0 0], S, T_max, k);
+[k, T] = qnosHelpFunctions.qnosGetWorkingConfiguration(P, [max_lambda 0 0 0], S, T_max, k)
 qnosHelpFunctions.qnosPlotTtot(P, max_lambda, min_lambda, S, V, k, 'Medium-high traffic load');
 
 
