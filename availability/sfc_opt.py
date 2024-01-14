@@ -2,6 +2,9 @@ class VNF:
     
     def __init__(self, conf: dict):
         self.conf = conf
+        
+    def set_container(self, container: int):
+        self.conf["CNT"] = container
 
 class SFC:
     
@@ -12,12 +15,14 @@ class SFC:
         self.av_list = av_list
         self.redundancies = [1 for _ in range(len(vnf_list))]
         
-    def get_cost(self, costs: dict, vnf_conf: dict = None):
+    def get_cost(self, costs: dict, vnf_conf: dict = None, redundancies_list: list = None):
+        if redundancies_list is None:
+            redundancies_list = self.redundancies
         if vnf_conf is None:
             # compute cost of the whole SFC
             cost = 0
             for i in range(len(self.vnf_list)):
-                cost += self.get_cost(costs, self.vnf_list[i].conf) * self.redundancies[i]
+                cost += self.get_cost(costs, self.vnf_list[i].conf) * redundancies_list[i]
         else:
             # compute cost of a single VNF
             cost = 0
@@ -34,11 +39,7 @@ class SFC:
         return availability
     
     def get_availability_cost(self, costs, redundancies_list):
-        # compute availability and cost of the whole SFC given a list of redundancies
-        temp = self.redundancies
-        self.redundancies = redundancies_list
-        res = self.get_availability(redundancies_list), self.get_cost(costs)
-        self.redundancies = temp
+        res = self.get_availability(redundancies_list), self.get_cost(costs, None, redundancies_list)
         return res
     
     def __calculate_dp(self, i, a, vnf_list, availability_constraint, memo, max_replicas=10):
