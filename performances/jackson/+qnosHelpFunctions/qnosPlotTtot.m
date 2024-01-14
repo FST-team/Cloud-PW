@@ -9,8 +9,8 @@ function qnosPlotTtot(P, max_lambda, min_lambda, S, V, k, title_str)
 
   figure;
   plot(lambdas, T_values, '-o');
-  xlabel('Traffic load (\lambda)');
-  ylabel('Total Average Chain Time (T)');
+  xlabel('\lambda_{ext} [s^{-1}]');
+  ylabel('E[T] [s]');
   title(title_str);
 
 end
