@@ -33,6 +33,14 @@ class SFC:
             availability *= (1- (1-self.av_list[i]) ** redundancies_list[i])
         return availability
     
+    def get_availability_cost(self, costs, redundancies_list):
+        # compute availability and cost of the whole SFC given a list of redundancies
+        temp = self.redundancies
+        self.redundancies = redundancies_list
+        res = self.get_availability(redundancies_list), self.get_cost(costs)
+        self.redundancies = temp
+        return res
+    
     def __calculate_dp(self, i, a, vnf_list, availability_constraint, memo, max_replicas=10):
         # Base cases
         if i == len(vnf_list):
