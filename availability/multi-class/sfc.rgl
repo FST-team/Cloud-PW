@@ -5,15 +5,29 @@ Comment :
 
 CommentEnd
 
-SubModel : PS
+SubModel : P
 Type : SRN Model
 
 SubModel : IH
 Type : SRN Model
 
+SubModel : S
+Type : SRN Model
+
 
 Function:
-Name:reward_function_PS
+Name:reward_function_IH
+Number Parameter:0
+Body number of lines:5
+if(#(PupCNTi)>=21 and #(PupCNTh)>=3)
+1
+else
+0
+end
+
+
+Function:
+Name:reward_function_P
 Number Parameter:0
 Body number of lines:5
 if(#(PupCNT)>=1)
@@ -24,13 +38,12 @@ end
 
 
 Function:
-Name:reward_function_IH
+Name:reward_function_S
 Number Parameter:0
 Body number of lines:5
-if(#(PupCNTi)>=5 and #(PupCNTh)>=1)
+if(#(PupCNT)>=4)
 1
 else
 0
 end
-
 

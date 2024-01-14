@@ -83,10 +83,10 @@ Name: P2
 Token: 1
 X, Y: 524,444
 Number of connected objects: 3
-Dest: TfDCKh
-Arc:arc47
 Dest: tCNTh
 Arc:arc58
+Dest: TfDCKh
+Arc:arc47
 Dest: tDCKh
 Arc:arc38
 vInputArc: [arc46]
@@ -98,7 +98,7 @@ Textwidth: 0
 
 Place:
 Name: PupCNTh
-Token: 1
+Token: 3
 X, Y: 284,444
 Number of connected objects: 0
 vInputArc: [arc50]
@@ -110,7 +110,7 @@ Textwidth: 0
 
 Place:
 Name: PupCNTi
-Token: 5
+Token: 21
 X, Y: 284,124
 Number of connected objects: 0
 vInputArc: [arc3]
@@ -562,7 +562,7 @@ X, Y: 211,596
 Width, Height: 54,19
 Textwidth: 0
 Guard: null
-Priority: null
+Priority: 10
 Choice Input: Constant
 
 Timed:
@@ -581,7 +581,7 @@ X, Y: 371,596
 Width, Height: 54,19
 Textwidth: 0
 Guard: null
-Priority: null
+Priority: 10
 Choice Input: Constant
 
 Timed:
@@ -600,7 +600,7 @@ X, Y: 451,596
 Width, Height: 54,19
 Textwidth: 0
 Guard: null
-Priority: null
+Priority: 10
 Choice Input: Constant
 
 Timed:
@@ -619,7 +619,7 @@ X, Y: 611,596
 Width, Height: 54,19
 Textwidth: 0
 Guard: null
-Priority: null
+Priority: 10
 Choice Input: Constant
 
 Timed:
@@ -638,7 +638,7 @@ X, Y: 691,596
 Width, Height: 47,19
 Textwidth: 0
 Guard: null
-Priority: null
+Priority: 10
 Choice Input: Constant
 
 Timed:
@@ -657,7 +657,7 @@ X, Y: 851,596
 Width, Height: 47,19
 Textwidth: 0
 Guard: null
-Priority: null
+Priority: 10
 Choice Input: Constant
 
 Arc:
