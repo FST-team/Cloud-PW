@@ -1,4 +1,4 @@
-# SFC of IMS nodes - performability abalysis
+# SFC of IMS nodes - performability analysis
 
 This repository stores the project work for the Cloud Systems and Advanced Networking course.
 
