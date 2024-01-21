@@ -1,4 +1,4 @@
-# Cloud-PW
+# SFC of IMS nodes - performability abalysis
 
 This repository stores the project work for the Cloud Systems and Advanced Networking course.
 
